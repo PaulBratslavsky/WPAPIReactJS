@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 
 class Videos extends Component {
+    state = {
+    data: []
+    }
+    
+    componentDidMount() {
+        const apiUrlvideos = "https://bjjandfriends.com/wp-json/wp/v2/videos";
+
+        fetch(apiUrlvideos)
+            .then( response => response.json() )
+            .then( Videos => {
+
+            this.setState({
+                data: Videos
+            });
+        
+        });
+    }
+    
     render() {
         
-        const data =  this.props.data;
+        const data =  this.state.data;
         console.log(data, 'this is from wp');
 
         // THIS FUNCTION GETS VIDEO ID FROM YOUTUBE AND RETURNS USABLE URL

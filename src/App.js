@@ -1,34 +1,47 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Link, Switch} from 'react-router-dom';
+
 import './App.css';
 
+// COMPONENTS
 import Videos from './components/Videos';
+import Pages from './components/Pages';
+import Posts from './components/Posts';
+import Home from './components/Home';
+import SinglePosts from './components/SinglePosts';
+
+
+
 
 class App extends Component {
 
-  state = {
-    data: []
-  }
-
-  componentDidMount() {
-    const apiUrl = "https://bjjandfriends.com/wp-json/wp/v2/videos";
-
-    fetch(apiUrl)
-      .then( response => response.json() )
-      .then( myJson => {
-
-        this.setState({
-          data: myJson
-        });
-        
-      });
-    }
+  
 
   render() {
 
     return (
       <div className="app-body">
-        <h1>My Videos</h1>
-        <Videos data={this.state.data}/>
+          <BrowserRouter>
+          
+            <div>
+              <header>
+                <h1>My App</h1>
+                <Link to="/">Home</Link>
+                <Link to="/pages">Pages</Link>
+                <Link to="/videos">Videos</Link>
+                <Link to="/posts">Posts</Link>
+              </header>
+
+              <Switch>
+                <Route path="/posts/:id" component={SinglePosts} />
+                <Route path="/videos" component={Videos} />
+                <Route path="/posts" exact component={Posts} />
+                <Route path="/pages" component={Pages} />
+                <Route path="/" exact component={Home} />
+              </Switch>
+
+            </div> 
+        </BrowserRouter>
       </div>
     );
   }
