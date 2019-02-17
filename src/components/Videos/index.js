@@ -4,21 +4,26 @@ import ReactHtmlParser from 'react-html-parser';
 
 class Videos extends Component {
     state = {
-    data: []
+    data: [],
+    url: "https://bjjandfriends.com/wp-json/wp/v2/videos"
     }
+
+    // NEED TO LEARN MORE ABOUT ASYNC AND AWAIT
+    async getVideosFromApi() {
+        try {
+            const data = await fetch(this.state.url);
+            const jsonData = await data.json();
     
-    componentDidMount() {
-        const apiUrlvideos = "https://bjjandfriends.com/wp-json/wp/v2/videos";
-
-        fetch(apiUrlvideos)
-            .then( response => response.json() )
-            .then( Videos => {
-
             this.setState({
-                data: Videos
+            data: jsonData
             });
-        
-        });
+        } catch(error) {
+          console.log(error, 'Failed in loading Json ');
+        }
+    }
+
+    componentDidMount() {
+        this.getVideosFromApi();
     }
     
     render() {
@@ -48,3 +53,22 @@ class Videos extends Component {
 }
 
 export default Videos;
+
+
+/* 
+    old way
+    componentDidMount() {
+        const apiUrlvideos = "https://bjjandfriends.com/wp-json/wp/v2/videos";
+
+        fetch(apiUrlvideos)
+            .then( response => response.json() )
+            .then( Videos => {
+
+            this.setState({
+                data: Videos
+            });
+        
+        });
+    }
+
+*/

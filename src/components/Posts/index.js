@@ -6,22 +6,23 @@ import ReactHtmlParser from 'react-html-parser';
 class Posts extends Component {
     state = {
         data: [],
+        url: "https://bjjandfriends.com/wp-json/wp/v2/posts",
         showMore: false
         }
         
-        componentDidMount() {
-            const apiUrlposts = "https://bjjandfriends.com/wp-json/wp/v2/posts";
-    
-            fetch(apiUrlposts)
-                .then( response => response.json() )
-                .then( Posts => {
-    
+        async componentDidMount() {
+            try {
+                const data = await fetch(this.state.url);
+                const jsonData = await data.json();
+        
                 this.setState({
-                    data: Posts
+                data: jsonData
                 });
-            
-            });
+            } catch(error) {
+              console.log(error, 'Failed in loading Json ');
+            }
         }
+
     render() {
         console.log(this.state.data);
         return(
@@ -35,7 +36,7 @@ class Posts extends Component {
 
                     return(
                         <div key={item.id}>
-                            {/*<Link to={`posts/${item.id}`}>{postTitle}</Link>*/}
+                           <Link to={`posts/${item.id}`}>{postTitle}</Link>
                             <div>
                                 <img className="post-image" src={postImageUrl} alt="My post image" />
                                 <h2>{ postTitle }</h2>

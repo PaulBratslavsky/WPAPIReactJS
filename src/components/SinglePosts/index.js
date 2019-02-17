@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
 
 class SinglePosts extends Component {
-    state = {
-        data: []
-        }
+    constructor(props) {
+        super(props);
         
-        componentDidMount() {
-            const currentPost = this.props.match.params.id;
-            const apiUrlSinglePost = `https://bjjandfriends.com/wp-json/wp/v2/posts/${currentPost}`;
-            
-            fetch(apiUrlSinglePost)
-                .then( response => response.json() )
-                .then( Post => {
+        const currentPost = this.props.match.params.id;
+        this.state = {
+            data: [],
+            url: `https://bjjandfriends.com/wp-json/wp/v2/posts/${currentPost}`
+            }
+    }
     
-                this.setState({
-                    data: Post
-                });
-            
+    async componentDidMount() {
+        try {
+            const data = await fetch(this.state.url);
+            const jsonData = await data.json();
+    
+            this.setState({
+            data: jsonData
             });
+        } catch(error) {
+          console.log(error, 'Failed in loading Json ');
         }
+    }
+
     
     render() {
-        const currentPost = this.state.data;
-        console.log(currentPost.title, 'from test');
+        const post = this.state.data;
+        console.log(post, 'from test');
+
+        console.log( this.state.data, "curious");
     return(
         
         <div>
-            <small>{currentPost.id}</small>
+            <small>{post.id}</small>
             <h2></h2>
 
         </div>
