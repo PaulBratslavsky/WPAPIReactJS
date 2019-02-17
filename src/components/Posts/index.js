@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
 
 class Posts extends Component {
     state = {
@@ -26,11 +28,17 @@ class Posts extends Component {
                 <h2>This is posts</h2>
 
                 {this.state.data.map( item => {
-                    
+                    console.log(item.excerpt.rendered);
+
+                    const myExcerpt = item.excerpt.rendered;
+
+
                     return(
                         <div key={item.id}>
                             <Link to={`posts/${item.id}`}>{item.title.rendered}</Link>
-                            <div>{item.excerpt.rendered}</div>
+                            <div>
+                                { ReactHtmlParser(myExcerpt) }
+                            </div>
                         </div>
                     );
                 
