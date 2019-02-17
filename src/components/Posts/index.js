@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Link }  from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
+
+// COMPONETS
+import PostList from '../PostList';
+import PostSingle from '../PostsSingle';
 
 
 class Posts extends Component {
     state = {
         data: [],
         url: "https://bjjandfriends.com/wp-json/wp/v2/posts",
-        showMore: false
+        showSingle: true,
+        id: '',
+        sectionName: 'Blog Post'
         }
         
         async componentDidMount() {
@@ -23,30 +28,42 @@ class Posts extends Component {
             }
         }
 
+        showSinglePostView = (id) => {
+            console.log("button clicked with index of ", id);
+            this.setState({
+                showSingle: false,
+                id: id,
+                sectionName: "Single Page"
+            });
+            
+        }
+
+        handleBackToList = () => {
+            console.log('take me back clicked');
+            this.setState({
+                showSingle: true,
+                sectionName: "Blog Posts"
+            })
+        }
+
     render() {
         console.log(this.state.data);
         return(
             <div>
-                <h2>This is posts</h2>
+                <h2>{this.state.sectionName}</h2>
 
-                {this.state.data.map( item => {
-                    const postExcerpt = ReactHtmlParser(item.excerpt.rendered);
-                    const postTitle = ReactHtmlParser(item.title.rendered);
-                    const postImageUrl = item.better_featured_image.source_url;
-
-                    return(
-                        <div key={item.id}>
-                           <Link to={`posts/${item.id}`}>{postTitle}</Link>
-                            <div>
-                                <img className="post-image" src={postImageUrl} alt="My post image" />
-                                <h2>{ postTitle }</h2>
-                                { postExcerpt }
-                                <button>Read More</button>
-                            </div>
-                        </div>
-                    );
+                {this.state.showSingle && <PostList 
+                    data={this.state.data}
+                    showSinglePostView={this.showSinglePostView } 
+                /> } 
                 
-                })}
+                { !this.state.showSingle && <PostSingle 
+                    id={this.state.id}
+                    handleBackToList={this.handleBackToList}
+                    />}
+
+                
+                
             </div>
         );
     }
