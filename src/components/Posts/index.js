@@ -5,7 +5,8 @@ import ReactHtmlParser from 'react-html-parser';
 
 class Posts extends Component {
     state = {
-        data: []
+        data: [],
+        showMore: false
         }
         
         componentDidMount() {
@@ -28,17 +29,18 @@ class Posts extends Component {
                 <h2>This is posts</h2>
 
                 {this.state.data.map( item => {
-                    console.log(item.excerpt.rendered);
-
                     const postExcerpt = ReactHtmlParser(item.excerpt.rendered);
                     const postTitle = ReactHtmlParser(item.title.rendered);
-
+                    const postImageUrl = item.better_featured_image.source_url;
 
                     return(
                         <div key={item.id}>
-                            <Link to={`posts/${item.id}`}>{postTitle}</Link>
+                            {/*<Link to={`posts/${item.id}`}>{postTitle}</Link>*/}
                             <div>
+                                <img className="post-image" src={postImageUrl} alt="My post image" />
+                                <h2>{ postTitle }</h2>
                                 { postExcerpt }
+                                <button>Read More</button>
                             </div>
                         </div>
                     );

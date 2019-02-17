@@ -35,7 +35,7 @@ class App extends Component {
               <Switch>
                 <Route path="/posts/:id" component={SinglePosts} />
                 <Route path="/videos" component={Videos} />
-                <Route path="/posts" exact component={Posts} />
+                <Route path="/posts" component={Posts} />
                 <Route path="/pages" component={Pages} />
                 <Route path="/" exact component={Home} />
               </Switch>

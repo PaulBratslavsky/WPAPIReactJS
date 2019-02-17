@@ -7,3 +7,9 @@ iframe {
   width: 100%;
   padding: 1rem;
 }
+
+.post-image {
+  width: 50%;
+  height: auto;
+  padding: 1rem;
+}
