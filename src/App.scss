@@ -1,0 +1,40 @@
+.app-body {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 75px;
+  padding: 1rem;
+}
+
+iframe {
+  width: 100%;
+  padding: 1rem;
+}
+
+.post-image {
+  width: 50%;
+  height: auto;
+  padding: 1rem;
+}
+
+// General Card Styling
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  padding-top: 75px;
+
+  .card {
+    width: 320px;
+    flex-grow: 2;
+    margin: 10px;
+    background: #191D24;
+    border-radius: 5px;
+  } 
+
+  .card:nth-child(1) {
+    width: 100%;
+  }
+}
+

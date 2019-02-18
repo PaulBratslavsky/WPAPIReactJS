@@ -54,7 +54,7 @@ class Videos extends Component {
                 </iframe>;
 
             return(
-                <div key={item.id}>
+                <div key={item.id} className="card">
                     <h1>{item.title.rendered}</h1>
                     <div>{item.acf.position}</div> 
                     {iframeMarkup}
@@ -63,10 +63,7 @@ class Videos extends Component {
         });
 
         return(
-            <div>
-                <h2>This is videos</h2>
-                <div>{showData}</div>
-            </div>
+            <div className="cards">{showData}</div>
         );
     }
 }

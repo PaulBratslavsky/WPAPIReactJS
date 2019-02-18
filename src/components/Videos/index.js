@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import '../../App.scss';
+import './videos.scss';
 
 
 class Videos extends Component {
@@ -35,19 +37,19 @@ class Videos extends Component {
         const showData = data.map( ( item ) => {
             const videoContent = ReactHtmlParser(item.acf.videourl);
             return(
-                <div key={item.id}>
-                    <h1>{item.title.rendered}</h1>
-                    <div>{item.acf.position}</div> 
-                    <div>{videoContent}</div>
+                <div key={item.id} className="card">
+                    <header className="video-header">
+                        <h1 className="video-title">{item.title.rendered}</h1>
+                    </header>
+                    
+                    <div className="videoWrapper">{videoContent}</div>
+                    {/*<div>{item.acf.position}</div>*/}
                 </div>
             );
         });
 
         return(
-            <div>
-                <h2>This is videos</h2>
-                <div>{showData}</div>
-            </div>
+            <div className="cards">{showData}</div>
         );
     }
 }
