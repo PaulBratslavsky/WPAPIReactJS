@@ -4,16 +4,17 @@ class SinglePosts extends Component {
     constructor(props) {
         super(props);
         
-        const currentPost = this.props.match.params.id;
         this.state = {
-            data: [],
-            url: `https://bjjandfriends.com/wp-json/wp/v2/posts/${currentPost}`
+            data: []
             }
     }
     
     async componentDidMount() {
+        const currentPost = this.props.match.params.id;
+
+        console.log(this.props ,"from did mount");
         try {
-            const data = await fetch(this.state.url);
+            const data = await fetch(`https://bjjandfriends.com/wp-json/wp/v2/posts/${currentPost}`);
             const jsonData = await data.json();
     
             this.setState({

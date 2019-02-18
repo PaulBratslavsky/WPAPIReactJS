@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import { Link } from 'react-router-dom';
+
 
 
 export default class PostList extends Component {
@@ -13,7 +15,7 @@ export default class PostList extends Component {
 
                     return(
                         <div key={item.id}>
-                           {/*<Link to={`posts/${item.id}`}>{postTitle}</Link>*/}
+                           <Link to={`posts/${item.id}`}>{postTitle}</Link>
                             <div>
                                 <img className="post-image" src={postImageUrl} alt="My post image" />
                                 <h2>{ postTitle }</h2>
